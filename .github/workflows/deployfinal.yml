@@ -53,16 +53,16 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_SSH_PORT }}
         script: |
-            cd ~/deploy
+            cd ~/automatizar
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u byronmoreno --password-stdin
             docker pull docker pull ghcr.io/byronmoreno/salchi:2.0.0
 
             docker stack rm quintobm || true
 
-            sleep 40
+            sleep 20
 
             docker stack deploy --with-registry-auth -c stack.yml quintobm
             
-            sleep 20
+            sleep 10
             echo "==> Verificando estado..."
             docker service ls
